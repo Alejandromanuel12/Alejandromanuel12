@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Brianna!</title>
+    <style>
+        body {
+            background-color: #f0e1ff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ff6b81;
+            animation: fadeIn 2s ease-in;
+        }
+        p {
+            font-size: 1.5rem;
+            color: #4c4c4c;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .cake {
+            width: 200px;
+            height: 200px;
+            background-color: #ff8c00;
+            border-radius: 50%;
+            margin: 50px auto;
+            position: relative;
+            animation: bounce 3s ease-in-out infinite;
+        }
+        .cake::after {
+            content: '🎂';
+            font-size: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .confetti div {
+            width: 10px;
+            height: 10px;
+            margin: 5px;
+            display: inline-block;
+            border-radius: 50%;
+            animation: confettiFall 5s infinite linear;
+            opacity: 0;
+        }
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(800px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        .confetti div:nth-child(odd) {
+            background-color: #ff5733;
+        }
+        .confetti div:nth-child(even) {
+            background-color: #33ff57;
+        }
+        .confetti div:nth-child(3n) {
+            background-color: #33aaff;
+        }
+        .confetti div:nth-child(4n) {
+            background-color: #ffcc00;
+        }
+        .confetti div:nth-child(5n) {
+            background-color: #9933cc;
+        }
+        .confetti div:nth-child(6n) {
+            background-color: #ff66cc;
+        }
+        .question-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .question-container button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #ff6b81;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        .question-container button:hover {
+            background-color: #ff4757;
+        }
+        .message-container {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .message-container h2 {
+            font-size: 2rem;
+            color: #4caf50;
+        }
+        .message-container p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pregunta si es el cumpleaños -->
+    <div class="question-container">
+        <h1>¡Hola! ¿Es tu cumpleaños hoy?</h1>
+        <button id="yes-btn">Sí</button>
+        <button id="no-btn">No</button>
+    </div>
+
+    <!-- Contenedor de mensaje bonito y animaciones -->
+    <div class="message-container" id="message-container">
+        <h2>¡Feliz Cumpleaños Brianna!</h2>
+        <p>Hoy es un día muy especial. ¡Te deseamos todo lo mejor!</p>
+        <div class="cake"></div>
+        <div class="confetti">
+            <!-- Confeti que caerá por toda la pantalla -->
+        </div>
+    </div>
+
+    <!-- Mensaje si no es cumpleaños -->
+    <div class="message-container" id="not-birthday-container">
+        <h2>¡Hola Brianna!</h2>
+        <p>No es tu cumpleaños hoy, pero seguro será un gran día igualmente.</p>
+    </div>
+
+    <script>
+        // Obtener elementos del DOM
+        const yesButton = document.getElementById('yes-btn');
+        const noButton = document.getElementById('no-btn');
+        const messageContainer = document.getElementById('message-container');
+        const notBirthdayContainer = document.getElementById('not-birthday-container');
+        const questionContainer = document.querySelector('.question-container');
+        const confettiContainer = document.querySelector('.confetti');
+
+        // Función para crear confeti
+        function createConfetti() {
+            for (let i = 0; i < 200; i++) {  // Crear 200 confetis
+                const confetti = document.createElement('div');
+                confetti.style.left = `${Math.random() * 100}vw`;  // Posición horizontal aleatoria
+                confetti.style.animationDelay = `${Math.random() * 5}s`;  // Retraso aleatorio en la animación
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Mostrar el mensaje de cumpleaños y animaciones
+        yesButton.addEventListener('click', () => {
+            questionContainer.style.display = 'none';
+            messageContainer.style.display = 'block';
+            createConfetti();  // Llamar la función para generar confeti
+        });
+
+        // Mostrar mensaje si no es cumpleaños
+        noButton.addEventListener('click', () => {
+            questionContainer.style.display = 'none';
+            notBirthdayContainer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
